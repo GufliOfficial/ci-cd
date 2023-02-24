@@ -1,0 +1,26 @@
+name: 'Java and gradle repo setup'
+description: 'Setup a java with gradle repo.'
+
+inputs:
+  arguments:
+    description: 'Arguments to pass to gradle execution.'
+    required: false
+    default: 'test'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Gradle Test
+      uses: gradle/gradle-build-action@v2
+      with:
+          arguments: ${{ inputs.arguments }}

@@ -1,0 +1,22 @@
+name: 'Publish javadocs'
+description: 'Generate and publish javadocs to github pages.'
+
+inputs:
+  directory:
+    description: 'Directory to generated javadocs'
+    default: 'build/docs/javadoc'
+    required: false
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/java-gradle-repo-setup.yml
+      with:
+        arguments: javadoc
+
+    - name: Deploy github pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: javadocs
+        folder: ${{ inputs.directory }}
