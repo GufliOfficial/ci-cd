@@ -1,7 +1,6 @@
 name: 'Publish github pre-release'
 description: 'Gradle build and publish github pre-release'
 
-
 inputs:
   files:
     description: 'Globs of files to include in pre-release'
@@ -9,18 +8,17 @@ inputs:
     required: false
     type: string
 
-jobs:
-  pre-release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/actions/java-gradle-repo-setup.yml
-        with:
-          arguments: shadowJar
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/java-gradle-repo-setup.yml
+      with:
+        arguments: shadowJar
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: ${{ inputs.files }}
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: ${{ inputs.files }}
