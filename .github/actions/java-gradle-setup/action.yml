@@ -1,5 +1,5 @@
-name: 'Java and gradle repo setup'
-description: 'Setup a java with gradle repo.'
+name: 'java-gradle-setup'
+description: 'Setup java with gradle.'
 
 inputs:
   arguments:
@@ -19,8 +19,3 @@ runs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Gradle Test
-      uses: gradle/gradle-build-action@v2
-      with:
-          arguments: ${{ inputs.arguments }}
